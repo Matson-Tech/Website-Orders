@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 36 33% 97%;
+    --foreground: 42 17% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 42 17% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 42 17% 20%;
+
+    --primary: 42 28% 56%;
+    --primary-foreground: 36 33% 97%;
+
+    --secondary: 36 33% 94%;
+    --secondary-foreground: 42 17% 20%;
+
+    --muted: 36 33% 94%;
+    --muted-foreground: 42 10% 40%;
+
+    --accent: 36 33% 94%;
+    --accent-foreground: 42 17% 20%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 36 33% 97%;
+
+    --border: 42 28% 86%;
+    --input: 42 28% 86%;
+    --ring: 42 28% 56%;
+
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+
+  .script {
+    @apply font-script;
+  }
+
+  .fancy-divider {
+    @apply w-full h-[1px] bg-gold relative my-4;
+  }
+
+  .fancy-divider::after {
+    content: "";
+    @apply absolute w-2 h-2 rounded-full bg-gold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .section-heading {
+    @apply text-4xl md:text-5xl lg:text-6xl font-serif text-gold font-normal relative pb-4 inline-block;
+  }
+
+  .section-heading::after {
+    content: "";
+    @apply absolute bottom-0 left-0 w-full h-[1px] bg-gold;
+  }
+
+  .section-heading .accent {
+    @apply text-burgundy;
+  }
+}
+
+@layer components {
+  .hero-text {
+    @apply text-center py-8;
+  }
+
+  .hero-name {
+    @apply text-4xl md:text-6xl mb-2 font-serif text-gold;
+  }
+
+  .hero-date {
+    @apply text-xl md:text-2xl text-muted-foreground;
+  }
+
+  .nav-link {
+    @apply text-xl md:text-2xl text-gold transition-all duration-300 hover:text-gold hover:scale-105 relative;
+  }
+
+  .nav-link.active {
+    @apply text-gold font-semibold;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 2px;
+    background: linear-gradient(to right, #d4af37, #fbbf24);
+    border-radius: 9999px;
+    animation: fadeInScale 0.3s ease-out;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) scaleX(0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(-50%) scaleX(1);
+    }
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
