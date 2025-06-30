@@ -1,9 +1,10 @@
 
 import React from 'react';
 import PageHeader from '@/components/PageHeader';
+import image from '@/assets/image8.jpg'; // Hero image for the family page
 
 const Family = () => {
-  const familyImage = '/lovable-uploads/0bb998e8-b0e9-442b-80e0-aea5f0990ccf.png';
+  const familyImage = image; // Image for the hero section
   
   return (
     <div className="pt-24 pb-20 bg-gradient-to-br from-cream via-white to-cream/70 min-h-screen">
