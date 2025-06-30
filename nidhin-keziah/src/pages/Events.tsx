@@ -3,8 +3,10 @@ import React from 'react';
 import PageHeader from '@/components/PageHeader';
 import { Calendar, MapPin, Heart, Clock, Sparkles, Download } from 'lucide-react';
 
+import image from '@/assets/image7.jpg';
+
 const Events = () => {
-  const eventsImage = '/lovable-uploads/fc085db9-9f1a-450e-b669-f6f052f93b76.png';
+  const eventsImage = image; // Image for the hero section
   
   // Wedding events
   const events = [
@@ -106,7 +108,7 @@ const Events = () => {
               <img 
                 src={eventsImage}
                 alt="Wedding Events" 
-                className="w-full h-96 lg:h-[500px] object-cover"
+                className="w-full h-96 lg:h-[500px] object-cover object-[center_30%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>

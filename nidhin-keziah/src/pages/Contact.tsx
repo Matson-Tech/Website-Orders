@@ -3,18 +3,23 @@ import React, { useEffect } from 'react';
 import { Mail, Phone, Heart, Users } from 'lucide-react';
 import AOS from 'aos';
 
+import bgimg from '@/assets/image9.jpg'; // Hero image for the contact page
+import image from '@/assets/image5.jpg'; // Contact image
+
 const Contact = () => {
   useEffect(() => {
     AOS.refresh();
   }, []);
 
-  const contactImage = '/lovable-uploads/b62dea22-612a-4c7a-91b2-08d1c51e5af9.png';
+  const contactImage = image;
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-cream via-white to-cream/50 overflow-hidden">
       {/* Custom Header Section */}
-      <div className="relative bg-gradient-to-r from-burgundy via-burgundy/90 to-burgundy bg-cover bg-center py-24" 
-           style={{backgroundImage: "url('/lovable-uploads/360ed0a4-45d7-4e43-8657-6730f1d6549e.png')"}}>
+      <div
+        className="relative bg-gradient-to-r from-burgundy via-burgundy/90 to-burgundy bg-cover bg-center py-24"
+        style={{ backgroundImage: `url(${bgimg})` }}
+      >
         <div className="absolute inset-0 bg-burgundy/70"></div>
         <div className="relative container mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">Contact Us</h1>

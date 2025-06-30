@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Play, Heart, Calendar, MapPin, Users, Camera } from 'lucide-react';
 import CountdownTimer from '@/components/CountdownTimer';
 import AOS from 'aos';
+import bgImg from '@/assets/image3.jpg'; // Ensure this path is correct
 
 const Index = () => {
   useEffect(() => {
@@ -11,7 +12,7 @@ const Index = () => {
   }, []);
 
   // Updated hero image path to use the new uploaded image
-  const heroImage = '/lovable-uploads/c4954fbf-33d2-4b38-923e-9a8da1cfa72c.png';
+  const heroImage = bgImg; // Replace with the correct path to your hero image
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-cream via-white to-cream/50">
@@ -21,7 +22,7 @@ const Index = () => {
           <img 
             src={heroImage} 
             alt="Nithin and Keziah" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center md:object-[center_30%]" 
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"></div>
         </div>
@@ -30,8 +31,8 @@ const Index = () => {
           <div className="animate-fade-in">
             <div className="mb-8">
               <div className="flex justify-center mb-4">
-                <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full">
-                  <Heart className="h-8 w-8 text-white" />
+                <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full opacity-0">
+                  <Heart className="h-8 w-8 text-white " />
                 </div>
               </div>
               <h1 className="font-script text-5xl md:text-7xl lg:text-8xl mb-4 text-shadow-lg">
@@ -45,11 +46,11 @@ const Index = () => {
             </p>
             
             <div className="mb-12 bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md mx-auto border border-white/20">
-              <p className="uppercase tracking-widest text-lg md:text-xl font-light mb-2 text-gold">
+              <p className="uppercase tracking-widest text-lg md:text-xl font-light mb-2 ">
                 SAVE THE DATE
               </p>
               <p className="text-3xl md:text-4xl font-bold mb-2">
-                January 26, 2026
+                January 12, 2026
               </p>
               <p className="text-lg text-cream">
                 St. Mary's Orthodox Syrian Church

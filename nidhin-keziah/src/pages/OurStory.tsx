@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import PageHeader from '@/components/PageHeader';
 import { Heart, MapPin, Calendar, Sparkles } from 'lucide-react';
+import video from '@/assets/video1.mp4';
+import thumbnail from '@/assets/image3.jpg';
+import image from '@/assets/image4.jpg'; // Ensure this path is correct
 
 const OurStory = () => {
   // Story sections
-  const storyVideo = '/lovable-uploads/video.mp4'; // Replace with actual video URL
-  const storyThumbnail = '/lovable-uploads/33f35150-6c2a-48ae-b08f-2844f80464bd.png'; // Thumbnail image
-  const coupleImage = '/lovable-uploads/58c0768d-1d9f-40c5-b639-edb15ffa83c6.png';
+  const storyVideo = video; // Video file
+  const storyThumbnail = thumbnail
+  const coupleImage = image; // Image of Nithin and Keziah
   
   // State to toggle between thumbnail and video
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoPaused, setIsVideoPaused] = useState(false);
   // State for "Read More" toggles
   const [showFullHowWeMetDesktop, setShowFullHowWeMetDesktop] = useState(false);
   const [showFullHowWeMetMobile, setShowFullHowWeMetMobile] = useState(false);
@@ -19,6 +23,20 @@ const OurStory = () => {
   // Function to handle play button click
   const handlePlayClick = () => {
     setIsVideoPlaying(true);
+    setIsVideoPaused(false);
+  };
+
+  // Function to handle video tap for play/pause
+  const handleVideoTap = (e) => {
+    e.preventDefault();
+    const video = e.target;
+    if (video.paused) {
+      video.play();
+      setIsVideoPaused(false);
+    } else {
+      video.pause();
+      setIsVideoPaused(true);
+    }
   };
 
   return (
@@ -161,7 +179,7 @@ const OurStory = () => {
                   <img 
                     src={coupleImage}
                     alt="Nithin and Keziah" 
-                    className="w-full h-96 lg:h-[500px] object-cover"
+                    className="w-full h-96 lg:h-[500px] object-cover object-[center_30%]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
@@ -335,14 +353,26 @@ const OurStory = () => {
             </div>
             
             {/* Video Section */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative aspect-[9/16] max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl">
               {isVideoPlaying ? (
-                <video
-                  src={storyVideo}
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  controls
-                />
+                <div className="relative">
+                  <video
+                    src={storyVideo}
+                    className="w-full h-full object-cover cursor-pointer"
+                    autoPlay
+                    loop
+                    onClick={handleVideoTap}
+                  />
+                  {isVideoPaused && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none">
+                      <div className="w-16 h-16 md:w-20 md:h-20 bg-white/80 rounded-full flex items-center justify-center shadow-xl">
+                        <svg className="w-8 h-8 md:w-10 md:h-10 text-gold ml-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M8 5v10l7-5-7-5z" />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <>
                   <img 
