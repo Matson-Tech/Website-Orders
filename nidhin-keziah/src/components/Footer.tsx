@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0 text-align-center">
-            <Link to="/" className="font-script text-2xl text-gold">
+            <Link to="/" className="font-bickham text-2xl text-gold">
               Nithin & Keziah
             </Link>
             <p className="text-muted-foreground mt-1">January 12, 2026</p>
@@ -34,6 +34,9 @@ export default function Footer() {
           </Link>
           <Link to="/family" className="text-foreground hover:text-gold transition-colors">
             Family
+          </Link>
+          <Link to="/wishes-page" className="text-foreground hover:text-gold transition-colors">
+            Wishes
           </Link>
           <Link to="/contact" className="text-foreground hover:text-gold transition-colors">
             Contact

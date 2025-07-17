@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
+import { LogOut } from 'lucide-react';
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -10,10 +12,12 @@ const navItems = [
   // { name: 'Watch Live', path: '/watch-live' },
   { name: 'Location', path: '/location' },
   { name: 'Family', path: '/family' },
+  { name: 'Wishes', path: '/wishes-page' },
   { name: 'Contact Us', path: '/contact' },
 ];
 
 export default function Navbar() {
+  const { isAuthenticated, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [scrolled, setScrolled] = useState(false);
@@ -44,7 +48,7 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="font-script text-2xl md:text-3xl text-gold">
+          <Link to="/" className="font-bickham text-2xl md:text-3xl text-gold">
            Nithin & Keziah
           </Link>
           <button
@@ -101,6 +105,19 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            
+            {isAuthenticated && (
+              <button 
+                className="nav-link flex items-center justify-center py-2 border-b border-gold/20 text-rose-500"
+                onClick={() => {
+                  logout();
+                  setIsOpen(false);
+                }}
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </button>
+            )}
           </div>
         </div>
 
@@ -121,6 +138,16 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
+          
+          {isAuthenticated && (
+            <button 
+              className="nav-link flex items-center text-rose-500 hover:text-rose-600 transition-colors" 
+              onClick={logout}
+            >
+              <LogOut className="w-4 h-4 mr-1" />
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>

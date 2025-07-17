@@ -23,6 +23,7 @@ export default {
 				'serif': ['Playfair Display', 'serif'],
 				'script': ['Great Vibes', 'cursive'],
 				'sans': ['Montserrat', 'sans-serif'],
+				'bickham': ['Bickham Script Pro', 'cursive'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

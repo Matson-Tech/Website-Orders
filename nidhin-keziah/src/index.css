@@ -35,6 +35,31 @@
     --radius: 0.5rem;
   }
 
+  /* Bickham Script Pro Font */
+  @font-face {
+    font-family: 'Bickham Script Pro';
+    src: url('/bickham-script-pro/Bickham Script Pro Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Bickham Script Pro';
+    src: url('/bickham-script-pro/Bickham Script Pro Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Bickham Script Pro';
+    src: url('/bickham-script-pro/Bickham Script Pro Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
   * {
     @apply border-border;
     scroll-behavior: smooth;
@@ -133,6 +158,63 @@
 
   .text-shadow-lg {
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Wishes Section Custom Styles */
+  .section-padding {
+    @apply py-16 px-4;
+  }
+
+  .container-width {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .decorative-border {
+    @apply w-24 h-1 bg-rose-500 rounded-full;
+  }
+
+  .serif-font {
+    @apply font-serif;
+  }
+
+  .sans-font {
+    @apply font-sans;
+  }
+
+  .script-font {
+    @apply font-serif italic;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }
 
