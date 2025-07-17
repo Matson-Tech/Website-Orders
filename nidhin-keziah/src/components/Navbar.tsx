@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { LogOut } from 'lucide-react';
@@ -18,8 +18,9 @@ const navItems = [
 
 export default function Navbar() {
   const { isAuthenticated, logout } = useAuth();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [currentPath, setCurrentPath] = useState(location.pathname);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -36,8 +37,8 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setCurrentPath(window.location.pathname);
-  }, []);
+    setCurrentPath(location.pathname);
+  }, [location]);
 
   return (
     <nav
@@ -99,7 +100,6 @@ export default function Navbar() {
                 )}
                 onClick={() => {
                   setIsOpen(false);
-                  setCurrentPath(item.path);
                 }}
               >
                 {item.name}
@@ -131,9 +131,7 @@ export default function Navbar() {
                 "nav-link",
                 currentPath === item.path && "active"
               )}
-              onClick={() => {
-                setCurrentPath(item.path);
-              }}
+              onClick={() => {}}
             >
               {item.name}
             </Link>
