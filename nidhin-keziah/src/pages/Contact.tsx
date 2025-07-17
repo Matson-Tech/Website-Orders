@@ -91,7 +91,7 @@ const Contact = () => {
                     <div className="w-16 h-16 bg-gradient-to-br from-pink-200 to-pink-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                       <span className="text-xl font-bold text-burgundy">K</span>
                     </div>
-                    <h4 className="font-bold text-burgundy">Keziah Susan Matson</h4>
+                    <h4 className="font-bold text-burgundy">Keziah Susanna Biji</h4>
                     <p className="text-sm text-gold font-medium">The Bride</p>
                   </div>
                   <div className="space-y-3">
@@ -110,7 +110,7 @@ const Contact = () => {
                     <div className="w-16 h-16 bg-gradient-to-br from-blue-200 to-blue-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                       <span className="text-xl font-bold text-burgundy">N</span>
                     </div>
-                    <h4 className="font-bold text-burgundy">Nithin Sebastian</h4>
+                    <h4 className="font-bold text-burgundy">Nithin Andrew Alex</h4>
                     <p className="text-sm text-gold font-medium">The Groom</p>
                   </div>
                   <div className="space-y-3">
@@ -173,7 +173,7 @@ const Contact = () => {
                       <p className="text-sm text-gray-600 mb-2">Father</p>
                       <a href="tel:+919400777378" className="flex items-center text-sm text-gray-700 hover:text-burgundy transition-colors">
                         <Phone className="h-3 w-3 mr-2 text-gold" />
-                        +91 9400777378
+                        +44 9400777378
                       </a>
                     </div>
                     <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
@@ -181,7 +181,7 @@ const Contact = () => {
                       <p className="text-sm text-gray-600 mb-2">Mother</p>
                       <a href="tel:+919778071648" className="flex items-center text-sm text-gray-700 hover:text-burgundy transition-colors">
                         <Phone className="h-3 w-3 mr-2 text-gold" />
-                        +91 9778071648
+                        +44 9778071648
                       </a>
                     </div>
                   </div>

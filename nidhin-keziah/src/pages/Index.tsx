@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Heart, Calendar, MapPin, Users, Camera } from 'lucide-react';
 import CountdownTimer from '@/components/CountdownTimer';
+import { WishesSection } from '@/components/WishesSection';
 import AOS from 'aos';
 import bgImg from '@/assets/image3.jpg'; // Ensure this path is correct
 
@@ -17,7 +18,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cream via-white to-cream/50">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden py-24">
         <div className="absolute inset-0 z-0">
           <img 
             src={heroImage} 
@@ -27,7 +28,7 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"></div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10 text-center text-white mt-16">
+        <div className="container mx-auto px-4 relative z-10 text-center text-white">
           <div className="animate-fade-in">
             <div className="mb-8">
               <div className="flex justify-center mb-4">
@@ -35,10 +36,17 @@ const Index = () => {
                   <Heart className="h-8 w-8 text-white " />
                 </div>
               </div>
-              <h1 className="font-script text-5xl md:text-7xl lg:text-8xl mb-4 text-shadow-lg">
-                Nithin & Keziah
+              <h1 className="font-bickham text-shadow-lg leading-none mb-4">
+                <div className="md:hidden flex flex-col items-center leading-[1] -space-y-3">
+                  <span className="text-[7rem] block">Nithin</span>
+                  <span className="text-[5rem] block">&</span>
+                  <span className="text-[7rem] block">Keziah</span>
+                </div>
+                <div className="hidden md:block text-[8rem] lg:text-[10rem]">
+                  Nithin & Keziah
+                </div>
               </h1>
-              <div className="w-24 h-1 bg-gradient-to-r from-gold to-yellow-400 mx-auto mb-6 rounded-full"></div>
+              {/* <div className="w-24 h-1 bg-gradient-to-r from-gold to-yellow-400 mx-auto mb-6 rounded-full"></div> */}
             </div>
             
             <p className="text-2xl md:text-3xl font-serif mb-8 text-shadow">
@@ -94,7 +102,7 @@ const Index = () => {
               We're overjoyed to share this special moment with our beloved family and friends. 
               Join us as we embark on this beautiful journey together and celebrate our union.
             </p>
-            <div className="w-32 h-1 bg-gradient-to-r from-gold to-yellow-400 mx-auto mb-12 rounded-full"></div>
+            {/* <div className="w-32 h-1 bg-gradient-to-r from-gold to-yellow-400 mx-auto mb-12 rounded-full"></div> */}
             <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto border border-cream/50">
               <CountdownTimer targetDate="2026-01-26T10:00:00" />
             </div>
@@ -224,6 +232,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Wishes Section */}
+      <WishesSection />
 
       {/* Watch Live Section */}
       {/* <section className="py-24 bg-white">
