@@ -147,7 +147,7 @@ const Contact = () => {
                       <p className="text-sm text-gray-600 mb-2">Father</p>
                       <a href="tel:+917915657064" className="flex items-center text-sm text-gray-700 hover:text-burgundy transition-colors">
                         <Phone className="h-3 w-3 mr-2 text-gold" />
-                        +91 7915657064
+                        +44 7915657064
                       </a>
                     </div>
                     <div className="bg-pink-50/50 p-4 rounded-lg border border-pink-100">
@@ -155,7 +155,7 @@ const Contact = () => {
                       <p className="text-sm text-gray-600 mb-2">Mother</p>
                       <a href="tel:+917999029975" className="flex items-center text-sm text-gray-700 hover:text-burgundy transition-colors">
                         <Phone className="h-3 w-3 mr-2 text-gold" />
-                        +91 7999029975
+                        +44 7999029975
                       </a>
                     </div>
                   </div>
@@ -173,7 +173,7 @@ const Contact = () => {
                       <p className="text-sm text-gray-600 mb-2">Father</p>
                       <a href="tel:+919400777378" className="flex items-center text-sm text-gray-700 hover:text-burgundy transition-colors">
                         <Phone className="h-3 w-3 mr-2 text-gold" />
-                        +44 9400777378
+                        +91 9400777378
                       </a>
                     </div>
                     <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
@@ -181,7 +181,7 @@ const Contact = () => {
                       <p className="text-sm text-gray-600 mb-2">Mother</p>
                       <a href="tel:+919778071648" className="flex items-center text-sm text-gray-700 hover:text-burgundy transition-colors">
                         <Phone className="h-3 w-3 mr-2 text-gold" />
-                        +44 9778071648
+                        +91 9778071648
                       </a>
                     </div>
                   </div>
