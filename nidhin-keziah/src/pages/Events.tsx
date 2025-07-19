@@ -49,7 +49,7 @@ const Events = () => {
     {
       date: 'January 12, 2026',
       title: 'Wedding Reception',
-      description: 'Celebrate with us as we continue the joy with dinner and festivities.',
+      description: 'Celebrate with us as we continue the joy with lunch and festivities.',
       venue: 'Yahir Auditorium, TK Road, Vallamkulam',
       icon: Sparkles,
       color: 'from-gold to-gold/70',
