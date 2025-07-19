@@ -104,7 +104,7 @@ const Index = () => {
             </p>
             {/* <div className="w-32 h-1 bg-gradient-to-r from-gold to-yellow-400 mx-auto mb-12 rounded-full"></div> */}
             <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto border border-cream/50">
-              <CountdownTimer targetDate="2026-01-26T10:00:00" />
+              <CountdownTimer targetDate="2026-01-12T00:00:00" />
             </div>
           </div>
         </div>
