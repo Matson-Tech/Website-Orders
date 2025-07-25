@@ -203,32 +203,31 @@ const Family = () => {
                 
                 <div className="max-w-4xl mx-auto">
                   <div className="space-y-6 text-gray-700 leading-relaxed text-lg md:text-xl">
-                    <div className="text-center mb-8">
-                      <p className="text-2xl md:text-3xl font-serif text-gold">ദൈവത്തിനു സ്തുതി.</p>
-                    </div>
+                    {/* Removed unnecessary 'With love,' at the start */}
                     
                     <div className="prose prose-lg max-w-none space-y-6 text-center">
-                      <div className="bg-gradient-to-r from-cream via-gold/10 to-cream rounded-2xl p-8 border border-gold/30">
-                        <p>
-                          ദൈവേഷ്ടമായാൽ, 2026 ജനുവരി 12 ആം തീയതി കല്ലൂപ്പാറ സെന്റ് മേരിസ് ഓർത്തഡോക്സ് വലിയ പള്ളിയിൽ വച്ചു വിവാഹിതരാകാൻ തീരുമാനിച്ചിരിക്കുന്ന ഞങ്ങളുടെ മകൻ Nithin Andrew Alex നും പള്ളം കല്ലൂപറമ്പിൽ Biji Varughese യുടെയും Sheena Philips ന്റെയും മകൾ Keziah Susanna Biji ക്കും എല്ലാ വിധ ആശംസകളും നേരുന്നു.
-                        </p>
-                      </div>
-                      
-                      <blockquote className="border-l-4 border-burgundy bg-cream/50 p-6 rounded-r-2xl my-8">
-                        <p className="text-gold font-medium italic text-xl">
-                          തുടർന്നുള്ള അവരുടെ വിവാഹ ജീവിതത്തിൽ ദൈവം തമ്പുരാൻ നന്മയും ആയുസ്സും ആരോഗ്യവും അനുഗ്രഹങ്ങളും നൽകണമേ എന്ന് ആത്മാർത്ഥമായി പ്രാർത്ഥിക്കുന്നു.
-                        </p>
-                      </blockquote>
-                      
+                    <div className="bg-gradient-to-r from-cream via-gold/10 to-cream rounded-2xl p-8 border border-gold/30">
                       <p>
-                        ഇത്രയും നാൾ നടത്തിയ ദൈവത്തിനു ഒരായിരം നന്ദിയും സ്തോത്രവും അർപ്പിക്കുന്നു...
+                        God willing, our son Nithin Andrew Alex and Keziah Susanna Biji, daughter of Biji Varughese and Sheena Philips of Pallam Kalluparambil, have decided to get married on January 12, 2026, at St. Mary’s Orthodox Valiya Palli, Kalloppara.
                       </p>
+                      <p className="mt-4">
+                        We extend our heartfelt wishes to them both.
+                      </p>
+                    </div>
+                    <blockquote className="border-l-4 border-burgundy bg-cream/50 p-6 rounded-r-2xl my-8">
+                      <p className="text-gold font-medium italic text-xl">
+                        We sincerely pray that the Lord may bless their married life with goodness, long life, health, and abundant blessings.
+                      </p>
+                    </blockquote>
+                    <p>
+                      We offer a thousand thanks and praises to God for His grace thus far…
+                    </p>
                     </div>
                     
                     <div className="text-center mt-10 pt-8 border-t border-burgundy/30">
-                      <p className="text-xl font-serif text-gold mb-4">എന്ന് സ്വന്തം</p>
-                      <p className="text-xl font-medium text-burgundy">Alexander K Thomas</p>
-                      <p className="text-xl font-medium text-burgundy">Shebamol Alexander</p>
+                    <p className="text-xl font-serif text-gold mb-4">With love,</p>
+                    <p className="text-xl font-medium text-burgundy">Alexander K Thomas</p>
+                    <p className="text-xl font-medium text-burgundy">Shebamol Alexander</p>
                     </div>
                   </div>
                 </div>
