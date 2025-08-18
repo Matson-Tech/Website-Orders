@@ -233,6 +233,88 @@ const Family = () => {
                 </div>
               </div>
             </div>
+
+            {/* Message from Keziah's Sister */}
+            <div className="group" data-aos="fade-up" data-aos-delay="450">
+              <div className="bg-gradient-to-br from-pink-50/80 via-white to-rose-50/50 backdrop-blur-sm rounded-3xl p-10 md:p-12 shadow-2xl border border-pink-200/30 transition-all duration-500 hover:shadow-3xl hover:border-pink-300/50">
+                <div className="text-center mb-10">
+                  <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-pink-400 to-rose-400 rounded-full mb-6 shadow-xl">
+                    <span className="text-4xl">👭</span>
+                  </div>
+                  <h3 className="text-3xl md:text-5xl font-serif text-gold mb-4">A Message from Keziah's Sister</h3>
+                  <div className="w-32 h-1 bg-gradient-to-r from-pink-400 to-rose-400 mx-auto rounded-full"></div>
+                </div>
+                
+                <div className="max-w-4xl mx-auto">
+                  <div className="space-y-6 text-gray-700 leading-relaxed text-lg md:text-xl">
+                    <div className="text-center mb-8">
+                      <p className="text-2xl md:text-3xl font-serif text-pink-600 italic">To my dearest sister Keziah and Aliyan,</p>
+                    </div>
+                    
+                    <div className="prose prose-lg max-w-none space-y-6">
+                      <p>
+                        It feels like only yesterday we were fighting over the remote, stealing the blanket from each other, and laughing until our sides hurt. I've always looked up to you — not just as my big sister, but as my best friend and the person who has taught me what it means to be strong, kind, and endlessly loving. Now, watching you step into this new chapter as a bride fills my heart with so much joy it's hard to put into words.
+                      </p>
+                      
+                      <blockquote className="border-l-4 border-pink-400 bg-pink-50/50 p-6 rounded-r-2xl my-8">
+                        <p className="text-rose-600 font-medium italic text-xl">
+                          Aliya, from the moment you came into her life, I saw a new light in her eyes. You've made her laugh harder, dream bigger, and feel more loved than ever before.
+                        </p>
+                      </blockquote>
+                      
+                      <p>
+                        The way you care for her, support her, and cherish her is something I will always be grateful for. You're not just gaining a wife — you've also gained a little sister who's ready to annoy you for life.
+                      </p>
+                      
+                      <p>
+                        I'm so excited to stand by your side, to cry happy tears during your ceremony, and to dance with you both into the night. This isn't just a wedding — it's the start of a lifetime of love, laughter, and shared adventures. And I couldn't be happier that the two of you get to write this story together.
+                      </p>
+                    </div>
+                    
+                    <div className="text-center mt-10 pt-8 border-t border-pink-300/30">
+                      <p className="text-2xl font-serif text-pink-600 mb-2">With endless love and excitement,</p>
+                      <p className="text-xl font-medium text-rose-500">Chinnu (Kerlin Biji)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Message from Nithin's Brother and Sister */}
+            <div className="group" data-aos="fade-up" data-aos-delay="500">
+              <div className="bg-gradient-to-br from-blue-50/80 via-white to-indigo-50/50 backdrop-blur-sm rounded-3xl p-10 md:p-12 shadow-2xl border border-blue-200/30 transition-all duration-500 hover:shadow-3xl hover:border-blue-300/50">
+                <div className="text-center mb-10">
+                  <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full mb-6 shadow-xl">
+                    <span className="text-4xl">👨‍👩‍👧‍👦</span>
+                  </div>
+                  <h3 className="text-3xl md:text-5xl font-serif text-gold mb-4">A Message from Nithin's Brother & Sister</h3>
+                  <div className="w-32 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto rounded-full"></div>
+                </div>
+                
+                <div className="max-w-4xl mx-auto">
+                  <div className="space-y-6 text-gray-700 leading-relaxed text-lg md:text-xl">
+                    <div className="prose prose-lg max-w-none space-y-6 text-center">
+                      <p>
+                        We are wishing you both a lifetime of happiness and love. May your love for each other continue to grow stronger every day. We are so happy and thrilled to see both of you on your special day.
+                      </p>
+                      
+                      <blockquote className="border-l-4 border-blue-400 bg-blue-50/50 p-6 rounded-r-2xl my-8">
+                        <p className="text-indigo-600 font-medium italic text-xl">
+                          Also, we welcome our beautiful bride, Keziah and her wonderful family to our family.
+                        </p>
+                      </blockquote>
+                    </div>
+                    
+                    <div className="text-center mt-10 pt-8 border-t border-blue-300/30">
+                      <p className="text-xl font-serif text-blue-600 mb-4">By,</p>
+                      <p className="text-xl font-medium text-indigo-600">Achachan (Nibinu Tom Alex)</p>
+                      <p className="text-xl font-medium text-indigo-600">Cheachi (Reeju Nibinu)</p>
+                      <p className="text-xl font-medium text-indigo-600">Abbuz (Abram)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
