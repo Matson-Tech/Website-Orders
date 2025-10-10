@@ -1,10 +1,40 @@
-import React, { useState } from 'react';
-import { MapPin, Shirt, Car, Info, ArrowRight, CheckCircle, Building, Navigation, Palette, Users, Clock, Gift, Music, Camera, Heart, Star, Sparkles, Home, Coffee, Utensils } from 'lucide-react';
-import { EditableText } from './EditableText';
-import { useContent } from '@/contexts/ContentContext';
-import { Button } from './ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
-import { useAuth } from '@/contexts/AuthContext';
+import React, { useState } from "react";
+import {
+  MapPin,
+  Shirt,
+  Car,
+  Info,
+  ArrowRight,
+  CheckCircle,
+  Building,
+  Navigation,
+  Palette,
+  Users,
+  Clock,
+  Gift,
+  Music,
+  Camera,
+  Heart,
+  Star,
+  Sparkles,
+  Home,
+  Coffee,
+  Utensils,
+  Church,
+  Hotel
+} from "lucide-react";
+import { EditableText } from "./EditableText";
+import { useContent } from "@/contexts/ContentContext";
+import { Button } from "./ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import { useAuth } from "@/contexts/AuthContext";
+import { motion } from "framer-motion";
 
 export const AboutSection: React.FC = () => {
   const { content, updateContent } = useContent();
@@ -14,44 +44,49 @@ export const AboutSection: React.FC = () => {
   // Available icons for each section
   const iconOptions = {
     venue: [
-      { icon: MapPin, name: 'Map Pin' },
-      { icon: Building, name: 'Building' },
-      { icon: Navigation, name: 'Navigation' },
-      { icon: Home, name: 'Home' },
-      { icon: Coffee, name: 'Coffee' },
-      { icon: Utensils, name: 'Restaurant' }
+      { icon: MapPin, name: "Map Pin" },
+      { icon: Building, name: "Building" },
+      { icon: Church, name: "Church" },
+      { icon: Home, name: "Home" },
+      { icon: Coffee, name: "Coffee" },
+      { icon: Utensils, name: "Restaurant" },
     ],
     dressCode: [
-      { icon: Shirt, name: 'Shirt' },
-      { icon: Palette, name: 'Palette' },
-      { icon: Users, name: 'Users' },
-      { icon: Star, name: 'Star' },
-      { icon: Sparkles, name: 'Sparkles' },
-      { icon: Heart, name: 'Heart' }
+      { icon: Shirt, name: "Shirt" },
+      { icon: Palette, name: "Palette" },
+      { icon: Users, name: "Users" },
+      { icon: Star, name: "Star" },
+      { icon: Sparkles, name: "Sparkles" },
+      { icon: Hotel, name: "Hotel" },
     ],
     parking: [
-      { icon: Car, name: 'Car' },
-      { icon: Navigation, name: 'Navigation' },
-      { icon: MapPin, name: 'Map Pin' },
-      { icon: Clock, name: 'Clock' },
-      { icon: Info, name: 'Info' },
-      { icon: Building, name: 'Building' }
-    ]
+      { icon: Car, name: "Car" },
+      { icon: Navigation, name: "Navigation" },
+      { icon: MapPin, name: "Map Pin" },
+      { icon: Clock, name: "Clock" },
+      { icon: Info, name: "Info" },
+      { icon: Building, name: "Building" },
+    ],
   };
 
   // Get stored icon names or default icons
-  const getStoredIcon = (sectionKey: string, defaultIcon: React.ComponentType<{ className?: string }>) => {
-    const storedIconName = content.about[`${sectionKey}Icon` as keyof typeof content.about] as string;
+  const getStoredIcon = (
+    sectionKey: string,
+    defaultIcon: React.ComponentType<{ className?: string }>
+  ) => {
+    const storedIconName = content.about[
+      `${sectionKey}Icon` as keyof typeof content.about
+    ] as string;
     if (storedIconName) {
       const iconSet = iconOptions[sectionKey as keyof typeof iconOptions];
-      const foundIcon = iconSet.find(opt => opt.name === storedIconName);
+      const foundIcon = iconSet.find((opt) => opt.name === storedIconName);
       return foundIcon ? foundIcon.icon : defaultIcon;
     }
     return defaultIcon;
   };
 
   const updateAboutField = (field: string, value: string) => {
-    updateContent('about', { ...content.about, [field]: value });
+    updateContent("about", { ...content.about, [field]: value });
   };
 
   const handleIconSelect = (sectionKey: string, iconName: string) => {
@@ -61,33 +96,36 @@ export const AboutSection: React.FC = () => {
 
   const sections = [
     {
-      key: 'venue',
-      icon: getStoredIcon('venue', MapPin),
-      titleField: 'receptionVenueTitle' as const,
-      title: content.about.receptionVenueTitle || 'Reception Venue',
-      field: 'gettingThere' as const,
-      content: content.about.gettingThere
+      key: "venue",
+      icon: getStoredIcon("venue", MapPin),
+      titleField: "receptionVenueTitle" as const,
+      title: content.about.receptionVenueTitle || "Reception Venue",
+      field: "gettingThere" as const,
+      content: content.about.gettingThere,
     },
     {
-      key: 'dressCode',
-      icon: getStoredIcon('dressCode', Shirt),
-      titleField: 'dressCodeTitle' as const,
-      title: content.about.dressCodeTitle || 'Dress Code',
-      field: 'dressCode' as const,
-      content: content.about.dressCode
+      key: "dressCode",
+      icon: getStoredIcon("dressCode", Shirt),
+      titleField: "dressCodeTitle" as const,
+      title: content.about.dressCodeTitle || "Dress Code",
+      field: "dressCode" as const,
+      content: content.about.dressCode,
     },
-    {
-      key: 'parking',
-      icon: getStoredIcon('parking', Car),
-      titleField: 'parkingTitle' as const,
-      title: content.about.parkingTitle || 'Parking & Directions',
-      field: 'parking' as const,
-      content: content.about.parking
-    }
+    // {
+    //   key: 'parking',
+    //   icon: getStoredIcon('parking', Car),
+    //   titleField: 'parkingTitle' as const,
+    //   title: content.about.parkingTitle || 'Parking & Directions',
+    //   field: 'parking' as const,
+    //   content: content.about.parking
+    // }
   ];
 
   return (
-    <section id="reception" className="section-padding bg-white relative overflow-hidden">
+    <section
+      id="reception"
+      className="section-padding bg-white relative overflow-hidden"
+    >
       {/* Geometric Background Pattern */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full opacity-5">
@@ -100,22 +138,42 @@ export const AboutSection: React.FC = () => {
 
       <div className="container-width relative z-10">
         <div className="text-center mb-16">
-          <h2 className="serif-font text-4xl md:text-5xl lg:text-6xl font-bold text-rose-500 mb-6">
-            Reception Details
-          </h2>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <h2 className="serif-font text-4xl md:text-5xl lg:text-6xl font-bold text-rose-500 mb-6">
+              Reception Details
+            </h2>
+          </motion.p>
           <div className="decorative-border mx-auto mb-8"></div>
-          <p className="sans-font text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Important information for our celebration
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <p className="sans-font text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Important information for our celebration
+            </p>
+          </motion.p>
         </div>
 
         {/* Modern Card Layout */}
         <div className="max-w-6xl mx-auto space-y-8">
           {sections.map((section, index) => (
+             <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             <div
               key={section.field}
               className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${
-                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                index % 2 === 1 ? "lg:flex-row-reverse" : ""
               } animate-fade-in-up`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
@@ -128,10 +186,15 @@ export const AboutSection: React.FC = () => {
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-pink-400 rounded-full flex items-center justify-center">
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
-                  
+
                   {/* Icon Selection Button for Authenticated Users */}
                   {isAuthenticated && (
-                    <Dialog open={selectedSection === section.key} onOpenChange={(open) => setSelectedSection(open ? section.key : null)}>
+                    <Dialog
+                      open={selectedSection === section.key}
+                      onOpenChange={(open) =>
+                        setSelectedSection(open ? section.key : null)
+                      }
+                    >
                       <DialogTrigger asChild>
                         <Button
                           variant="outline"
@@ -143,15 +206,21 @@ export const AboutSection: React.FC = () => {
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-md">
                         <DialogHeader>
-                          <DialogTitle>Choose Icon for {section.title}</DialogTitle>
+                          <DialogTitle>
+                            Choose Icon for {section.title}
+                          </DialogTitle>
                         </DialogHeader>
                         <div className="grid grid-cols-3 gap-4 py-4">
-                          {iconOptions[section.key as keyof typeof iconOptions].map((option) => (
+                          {iconOptions[
+                            section.key as keyof typeof iconOptions
+                          ].map((option) => (
                             <Button
                               key={option.name}
                               variant="outline"
                               className="h-16 flex flex-col items-center justify-center space-y-2 hover:bg-rose-50 hover:border-rose-300"
-                              onClick={() => handleIconSelect(section.key, option.name)}
+                              onClick={() =>
+                                handleIconSelect(section.key, option.name)
+                              }
                             >
                               <option.icon className="w-6 h-6" />
                               <span className="text-xs">{option.name}</span>
@@ -168,7 +237,9 @@ export const AboutSection: React.FC = () => {
               <div className="flex-1 text-center lg:text-left">
                 <EditableText
                   value={section.title}
-                  onSave={(value) => updateAboutField(section.titleField, value)}
+                  onSave={(value) =>
+                    updateAboutField(section.titleField, value)
+                  }
                   className="block"
                   editClassName="serif-font text-3xl text-gray-800"
                 >
@@ -193,10 +264,17 @@ export const AboutSection: React.FC = () => {
                 </EditableText>
               </div>
             </div>
+            </motion.p>
           ))}
         </div>
 
         {/* Call to Action Section */}
+         <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
         <div className="mt-24 text-center">
           <div className="bg-rose-500 text-white rounded-3xl p-12 shadow-2xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-pink-500 opacity-90"></div>
@@ -206,11 +284,13 @@ export const AboutSection: React.FC = () => {
                 Questions?
               </h3>
               <p className="sans-font text-lg opacity-90 max-w-2xl mx-auto">
-                If you have any questions about the venue, dress code, or directions, please don't hesitate to reach out to us.
+                If you have any questions about the venue, dress code, or
+                directions, please don't hesitate to reach out to us.
               </p>
             </div>
           </div>
         </div>
+        </motion.p>
       </div>
     </section>
   );

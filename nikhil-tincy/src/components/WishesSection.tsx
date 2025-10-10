@@ -8,6 +8,7 @@ import { useContent } from '@/contexts/ContentContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const WISH_API_BASE = 'https://kzhbmjygrzjardgruunp.supabase.co/functions/v1';
 const USER_ID = import.meta.env.VITE_USER_ID || 'public-user';
@@ -210,13 +211,27 @@ export const WishesSection: React.FC = () => {
 
       <div className="container-width relative z-10">
         <div className="text-center mb-16">
+           <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
           <h2 className="serif-font text-4xl md:text-5xl lg:text-6xl font-bold text-rose-500 mb-6">
-            Wedding Wishes
+             Wishes
           </h2>
+          </motion.p>
           <div className="decorative-border mx-auto mb-8"></div>
+           <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
           <p className="sans-font text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Share your love and best wishes for our special day
           </p>
+          </motion.p>
         </div>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -226,7 +241,12 @@ export const WishesSection: React.FC = () => {
               {/* Decorative corner elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-rose-100/30 to-transparent rounded-full -translate-y-16 translate-x-16"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-pink-100/30 to-transparent rounded-full translate-y-12 -translate-x-12"></div>
-              
+               <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
               <div className="relative z-10">
                 <div className="text-center mb-8">
                   <div className="relative w-20 h-20 mx-auto mb-6">
@@ -285,6 +305,7 @@ export const WishesSection: React.FC = () => {
                   </Button>
                 </form>
               </div>
+              </motion.p>
 
               {/* Decorative dots */}
               <div className="absolute bottom-4 right-4 flex space-x-2">
@@ -299,9 +320,16 @@ export const WishesSection: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-pink-500 opacity-90"></div>
               <div className="relative z-10 text-center">
                 <Heart className="w-10 h-10 mx-auto mb-4 opacity-80" />
+                 <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
                 <p className="script-font text-xl font-medium opacity-90">
                   "Your presence is truly the best gift we could ask for!"
                 </p>
+                </motion.p>
               </div>
             </div>
           </div>
@@ -318,6 +346,12 @@ export const WishesSection: React.FC = () => {
                     </div>
                     <div className="absolute inset-0 bg-rose-500 rounded-full animate-pulse opacity-20"></div>
                   </div>
+                   <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
                   <div className="flex-1 flex justify-end">
                     {isAuthenticated && (
                       <Link to="/wishes">
@@ -332,15 +366,35 @@ export const WishesSection: React.FC = () => {
                       </Link>
                     )}
                   </div>
+                  </motion.p>
                 </div>
+                 <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
                 <h3 className="serif-font text-2xl font-bold text-gray-800 mb-2">
                   Wishes from Our Loved Ones
                 </h3>
+                </motion.p>
+                 <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
                 <p className="sans-font text-gray-600 text-sm">
                   {wishes.length} {wishes.length === 1 ? 'wish' : 'wishes'} shared with love
                 </p>
+                </motion.p>
               </div>
-
+ <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
               <div className="space-y-4 max-h-[500px] overflow-hidden pr-2 relative select-none" ref={scrollRef} style={{ touchAction: 'none' }}>
                 {/* Scroll indicator */}
                 {wishes.length >= 3 && (
@@ -444,11 +498,18 @@ export const WishesSection: React.FC = () => {
                   </div>
                 )}
               </div>
+              </motion.p>
             </div>
           </div>
         </div>
 
         {/* Bottom Message */}
+         <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
         <div className="mt-20 text-center">
           <div className="inline-flex items-center space-x-4 bg-white/80 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg border border-rose-100">
             <Heart className="w-6 h-6 text-rose-500" />
@@ -456,6 +517,7 @@ export const WishesSection: React.FC = () => {
             <Heart className="w-6 h-6 text-rose-500" />
           </div>
         </div>
+        </motion.p>
       </div>
     </section>
   );
