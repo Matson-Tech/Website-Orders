@@ -1,23 +1,27 @@
-import React from 'react';
-import { EditableText } from './EditableText';
-import { useContent } from '@/contexts/ContentContext';
-import { useAuth } from '@/contexts/AuthContext';
-import { EditableImage } from './EditableImage';
-import { Heart, Sparkles, Star } from 'lucide-react';
-
+import React from "react";
+import { EditableText } from "./EditableText";
+import { useContent } from "@/contexts/ContentContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { EditableImage } from "./EditableImage";
+import { Heart, Sparkles, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { AnimatedWords } from "./animation/AnimatedWords";
 export const LoveStorySection: React.FC = () => {
   const { content, updateContent } = useContent();
   const { isAuthenticated } = useAuth();
 
   const updateStoryField = (field: string, value: string) => {
-    updateContent('loveStory', { [field]: value });
+    updateContent("loveStory", { [field]: value });
   };
 
   return (
-    <section id="story" className="min-h-screen py-20 bg-gradient-to-b from-rose-50 via-rose-25 to-white relative overflow-hidden">
+    <section
+      id="story"
+      className="min-h-screen py-20 bg-gradient-to-b from-rose-50 via-rose-25 to-white relative overflow-hidden"
+    >
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-rose-100/20"></div>
-      
+
       {/* Floating decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-32 left-20 w-96 h-96 bg-rose-200/40 rounded-full blur-3xl opacity-60"></div>
@@ -31,11 +35,18 @@ export const LoveStorySection: React.FC = () => {
             <div className="text-center lg:text-left">
               <EditableText
                 value={content.loveStory.title}
-                onSave={(value) => updateStoryField('title', value)}
+                onSave={(value) => updateStoryField("title", value)}
                 className="inline-block"
               >
                 <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-rose-500 mb-6">
-                  {content.loveStory.title}
+                  <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
+                    {content.loveStory.title}
+                  </motion.p>
                 </h2>
               </EditableText>
               <div className="w-24 h-px bg-rose-300 mb-8 mx-auto lg:mx-0"></div>
@@ -43,15 +54,23 @@ export const LoveStorySection: React.FC = () => {
 
             <EditableText
               value={content.loveStory.content}
-              onSave={(value) => updateStoryField('content', value)}
+              onSave={(value) => updateStoryField("content", value)}
               multiline
               className="block"
               editClassName="text-lg"
             >
               <div className="prose prose-lg max-w-none">
                 <p className="text-lg leading-relaxed text-gray-700 mb-6">
-                  {content.loveStory.content}
+                  <AnimatedWords text={content.loveStory.content} />
                 </p>
+                {/* <motion.p
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="text-lg leading-relaxed text-gray-700 mb-6"
+                >
+                  {content.loveStory.content}
+                </motion.p> */}
               </div>
             </EditableText>
 
@@ -64,48 +83,58 @@ export const LoveStorySection: React.FC = () => {
           </div>
 
           {/* Image */}
+           <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                viewport={{ once: true }}
+              >
           <div className="relative group">
             <div className="relative overflow-hidden rounded-3xl shadow-2xl">
-              {isAuthenticated ? (
-                <EditableImage
-                  path="loveStory.image"
-                  alt="Love Story"
-                  className="w-full h-[500px] md:h-[600px] object-cover transition-transform duration-500 hover:scale-105"
-                />
-              ) : (
-                <>
-                  <img
-                    src={content.loveStory.image || '/placeholder.svg'}
+                {isAuthenticated ? (
+                  <EditableImage
+                    path="loveStory.image"
                     alt="Love Story"
                     className="w-full h-[500px] md:h-[600px] object-cover transition-transform duration-500 hover:scale-105"
                   />
-                  
-                  {/* Elegant overlay - only for non-authenticated users */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-                  
-                  {/* Elegant corner decorations - only for non-authenticated users */}
-                  <div className="absolute top-4 left-4 w-12 h-12 border-l-2 border-t-2 border-white/60 rounded-tl-lg"></div>
-                  <div className="absolute top-4 right-4 w-12 h-12 border-r-2 border-t-2 border-white/60 rounded-tr-lg"></div>
-                  <div className="absolute bottom-4 left-4 w-12 h-12 border-l-2 border-b-2 border-white/60 rounded-bl-lg"></div>
-                  <div className="absolute bottom-4 right-4 w-12 h-12 border-r-2 border-b-2 border-white/60 rounded-br-lg"></div>
-                  
-                  {/* Floating hearts overlay - only for non-authenticated users */}
-                  <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-6 right-6 animate-pulse">
-                      <Heart className="w-5 h-5 text-white/40" />
+                ) : (
+                  <>
+                    <img
+                      src={content.loveStory.image || "/placeholder.svg"}
+                      alt="Love Story"
+                      className="w-full h-[500px] md:h-[600px] object-cover transition-transform duration-500 hover:scale-105"
+                    />
+
+                    {/* Elegant overlay - only for non-authenticated users */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+
+                    {/* Elegant corner decorations - only for non-authenticated users */}
+                    <div className="absolute top-4 left-4 w-12 h-12 border-l-2 border-t-2 border-white/60 rounded-tl-lg"></div>
+                    <div className="absolute top-4 right-4 w-12 h-12 border-r-2 border-t-2 border-white/60 rounded-tr-lg"></div>
+                    <div className="absolute bottom-4 left-4 w-12 h-12 border-l-2 border-b-2 border-white/60 rounded-bl-lg"></div>
+                    <div className="absolute bottom-4 right-4 w-12 h-12 border-r-2 border-b-2 border-white/60 rounded-br-lg"></div>
+
+                    {/* Floating hearts overlay - only for non-authenticated users */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      <div className="absolute top-6 right-6 animate-pulse">
+                        <Heart className="w-5 h-5 text-white/40" />
+                      </div>
+                      <div
+                        className="absolute bottom-6 left-6 animate-pulse"
+                        style={{ animationDelay: "1s" }}
+                      >
+                        <Heart className="w-4 h-4 text-white/40" />
+                      </div>
                     </div>
-                    <div className="absolute bottom-6 left-6 animate-pulse" style={{ animationDelay: '1s' }}>
-                      <Heart className="w-4 h-4 text-white/40" />
-                    </div>
-                  </div>
-                </>
-              )}
+                  </>
+                )}
             </div>
-            
+
             {/* Floating decorative frame */}
             <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-rose-200/50 rounded-full"></div>
             <div className="absolute -bottom-4 -left-4 w-32 h-32 border-2 border-purple-200/40 rounded-full"></div>
           </div>
+          </motion.p>
         </div>
       </div>
     </section>

@@ -1,15 +1,17 @@
-
-import React from 'react';
-import { Heart, Sparkles, Star } from 'lucide-react';
-import { useContent } from '@/contexts/ContentContext';
-
+import React from "react";
+import { Heart, Sparkles, Star } from "lucide-react";
+import { useContent } from "@/contexts/ContentContext";
+import { motion } from "framer-motion";
+import { AnimatedWords } from "./animation/AnimatedWords";
 export const Footer: React.FC = () => {
   const { content } = useContent();
 
   // Get first letters of couple's names
   const getInitials = () => {
-    const brideInitial = content?.hero?.brideName?.charAt(0)?.toUpperCase() || 'B';
-    const groomInitial = content?.hero?.groomName?.charAt(0)?.toUpperCase() || 'G';
+    const brideInitial =
+      content?.hero?.brideName?.charAt(0)?.toUpperCase() || "B";
+    const groomInitial =
+      content?.hero?.groomName?.charAt(0)?.toUpperCase() || "G";
     return `${brideInitial} & ${groomInitial}`;
   };
   return (
@@ -19,10 +21,16 @@ export const Footer: React.FC = () => {
         <div className="absolute top-8 left-10 animate-sparkle">
           <Sparkles className="w-6 h-6 text-white/10" />
         </div>
-        <div className="absolute top-12 right-16 animate-sparkle" style={{ animationDelay: '2s' }}>
+        <div
+          className="absolute top-12 right-16 animate-sparkle"
+          style={{ animationDelay: "2s" }}
+        >
           <Star className="w-5 h-5 text-white/10" />
         </div>
-        <div className="absolute bottom-8 left-20 animate-sparkle" style={{ animationDelay: '4s' }}>
+        <div
+          className="absolute bottom-8 left-20 animate-sparkle"
+          style={{ animationDelay: "4s" }}
+        >
           <Heart className="w-6 h-6 text-white/10" />
         </div>
       </div>
@@ -38,37 +46,48 @@ export const Footer: React.FC = () => {
               {getInitials()}
             </div>
             <div className="w-16 h-16 bg-rose-500 rounded-full flex items-center justify-center elegant-shadow">
-              <Heart className="w-8 h-8 text-white animate-heartbeat" style={{ animationDelay: '0.5s' }} />
+              <Heart
+                className="w-8 h-8 text-white animate-heartbeat"
+                style={{ animationDelay: "0.5s" }}
+              />
             </div>
           </div>
-          
+
           {/* Decorative line */}
           <div className="flex items-center justify-center gap-6">
             <div className="w-24 h-px bg-white/40"></div>
             <Sparkles className="w-6 h-6 text-white/60" />
             <div className="w-24 h-px bg-white/40"></div>
           </div>
-          
+
           {/* Thank you message */}
           <div className="max-w-2xl mx-auto">
-            <p className="serif-font text-xl md:text-2xl font-light text-white/90 mb-4">
-              Thank you for being part of our love story
-            </p>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              viewport={{ once: true }}
+            >
+              <p className="serif-font text-xl md:text-2xl font-light text-white/90 mb-4">
+                Thank you for being part of our love story
+              </p>
+            </motion.p>
             <p className="sans-font text-white/70 text-lg">
-              Your presence and wishes mean the world to us 💕
+              <AnimatedWords
+                text="
+              Your presence and wishes mean the world to us 💕"
+              />
             </p>
           </div>
-          
+
           {/* Wedding Date */}
           <div className="glass-card rounded-2xl p-6 max-w-md mx-auto">
             <p className="serif-font text-lg text-white/90 mb-2">
               Save the Date
             </p>
-            <p className="script-font text-2xl text-white">
-              April 27, 2030
-            </p>
+            <p className="script-font text-2xl text-white">April 27, 2030</p>
           </div>
-          
+
           {/* Copyright */}
           <div className="border-t border-white/20 pt-8">
             <p className="sans-font text-sm text-white/60">

@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useContent } from '@/contexts/ContentContext';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
+import { motion } from "framer-motion";
 
 export const GallerySection: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -30,13 +31,27 @@ export const GallerySection: React.FC = () => {
 
       <div className="container-width relative z-10">
         <div className="text-center mb-16">
+           <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
           <h2 className="serif-font text-4xl md:text-5xl lg:text-6xl font-bold text-rose-500 mb-6">
             Gallery
           </h2>
+          </motion.p>
           <div className="decorative-border mx-auto mb-8"></div>
+           <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
           <p className="sans-font text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Capturing the beautiful moments of our journey together
           </p>
+          </motion.p>
         </div>
 
         {/* Modern Gallery Grid */}
@@ -44,6 +59,12 @@ export const GallerySection: React.FC = () => {
           {displayPhotos.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {displayPhotos.map((photo, index) => (
+                 <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
                 <div
                   key={photo.id}
                   className="group relative animate-fade-in-up"
@@ -79,23 +100,45 @@ export const GallerySection: React.FC = () => {
                     <div className="absolute bottom-4 left-4 w-4 h-4 bg-pink-100 rounded-full opacity-40"></div>
                   </div>
                 </div>
+                </motion.p>
               ))}
             </div>
           ) : (
             <div className="text-center py-16">
               <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-12 shadow-xl border border-rose-100/50 max-w-md mx-auto">
+               <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
                 <div className="relative w-24 h-24 mx-auto mb-8">
                   <div className="w-24 h-24 bg-rose-500 rounded-full flex items-center justify-center shadow-2xl">
                     <Images className="w-12 h-12 text-white" />
                   </div>
                   <div className="absolute inset-0 bg-rose-500 rounded-full animate-pulse opacity-20"></div>
                 </div>
+                </motion.p>
+                 <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
                 <h3 className="serif-font text-2xl font-semibold text-gray-800 mb-4">
                   Gallery Coming Soon
                 </h3>
+                </motion.p>
+                 <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
                 <p className="sans-font text-gray-600 leading-relaxed">
                   We're preparing beautiful memories to share with you. Check back soon!
                 </p>
+                </motion.p>
               </div>
             </div>
           )}
@@ -103,6 +146,12 @@ export const GallerySection: React.FC = () => {
 
         {/* View Full Gallery Button */}
         {displayPhotos.length > 0 && (
+           <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
           <div className="text-center mt-16">
             <Link to="/gallery">
               <Button className="bg-rose-500 hover:bg-rose-600 text-white px-12 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg font-medium group">
@@ -112,15 +161,23 @@ export const GallerySection: React.FC = () => {
               </Button>
             </Link>
           </div>
+          </motion.p>
         )}
 
         {/* Bottom Message */}
         <div className="mt-20 text-center">
+           <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
           <div className="inline-flex items-center space-x-4 bg-white/80 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg border border-rose-100">
             <Heart className="w-6 h-6 text-rose-500" />
             <p className="script-font text-xl text-gray-700">Every picture tells our story</p>
             <Heart className="w-6 h-6 text-rose-500" />
           </div>
+          </motion.p>
         </div>
 
         {/* Enhanced Lightbox Modal */}
@@ -131,6 +188,12 @@ export const GallerySection: React.FC = () => {
           >
             <div className="relative max-w-4xl max-h-full">
               <div className="relative bg-white rounded-3xl overflow-hidden shadow-2xl">
+                 <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
                 <img
                   src={selectedImage}
                   alt="Gallery image"
@@ -144,6 +207,7 @@ export const GallerySection: React.FC = () => {
                 >
                   <X className="w-5 h-5" />
                 </Button>
+                </motion.p>
               </div>
             </div>
           </div>
