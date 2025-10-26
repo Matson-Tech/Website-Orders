@@ -85,7 +85,16 @@ export const Footer: React.FC = () => {
             <p className="serif-font text-lg text-white/90 mb-2">
               Save the Date
             </p>
-            <p className="script-font text-2xl text-white">April 27, 2030</p>
+            <p className="script-font text-2xl text-white">
+              {content.hero.date &&
+                (() => {
+                  const date = new Date(content.hero.date);
+                  const day = String(date.getDate()).padStart(2, "0");
+                  const month = String(date.getMonth() + 1).padStart(2, "0"); // months are 0-indexed
+                  const year = date.getFullYear();
+                  return `${day}-${month}-${year}`;
+                })()}
+            </p>
           </div>
 
           {/* Copyright */}

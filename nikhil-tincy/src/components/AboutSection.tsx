@@ -284,7 +284,7 @@ export const AboutSection: React.FC = () => {
                 Questions?
               </h3>
               <p className="sans-font text-lg opacity-90 max-w-2xl mx-auto">
-                If you have any questions about the venue, dress code, or
+                If you have any questions about the venue or
                 directions, please don't hesitate to reach out to us.
               </p>
             </div>
