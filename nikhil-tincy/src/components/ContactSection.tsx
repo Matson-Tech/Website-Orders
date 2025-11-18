@@ -208,7 +208,7 @@ export const ContactSection: React.FC = () => {
                 viewport={{ once: true }}
               >
                 <p className="sans-font text-lg opacity-90 max-w-2xl mx-auto leading-relaxed mb-8">
-                  For any questions about the engagement, transportation, or
+                  For any questions about the Wedding, transportation, or
                   special arrangements, please don’t hesitate to reach out to
                   either of us.
                 </p>
@@ -223,7 +223,7 @@ export const ContactSection: React.FC = () => {
                 >
                   <div className="text-center">
                     <Calendar className="w-8 h-8 mx-auto mb-2 opacity-80" />
-                    <p className="text-sm opacity-80">Engagement Date</p>
+                    <p className="text-sm opacity-80">Wedding Date</p>
                     <p className="font-semibold">{content.hero.date}</p>
                   </div>
                 </motion.p>
@@ -235,7 +235,7 @@ export const ContactSection: React.FC = () => {
                 >
                   <div className="text-center">
                     <MapPin className="w-8 h-8 mx-auto mb-2 opacity-80" />
-                    <p className="text-sm opacity-80">Engagement Location</p>
+                    <p className="text-sm opacity-80">Wedding Location</p>
                     <p className="font-semibold">{content.hero.venue}</p>
                   </div>
                 </motion.p>

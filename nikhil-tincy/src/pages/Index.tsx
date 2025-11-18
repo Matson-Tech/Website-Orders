@@ -60,7 +60,7 @@ const Index = () => {
               transition={{ type: "spring", duration: 0.6 }}
             >
               <h2 className="text-2xl font-bold text-rose-600 mb-3">
-                Welcome to Our Engagement ❤️
+                Welcome to Our Wedding ❤️
               </h2>
               <p className="text-gray-600 mb-6">
                Thank you for visiting — your wishes are the most precious gift to our story. 💕
