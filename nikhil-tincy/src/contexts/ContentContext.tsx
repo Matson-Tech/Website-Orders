@@ -22,6 +22,8 @@ interface WeddingContent {
     time: string;
     event: string;
     description: string;
+    locationMyDestination?: string;
+    btnLabel?: string;
   }>;
   about: {
     gettingThere: string;
@@ -67,6 +69,7 @@ interface ContentContextType {
   addGalleryPhoto: (photo: { id: string; url: string; alt: string }) => void;
   addMultipleGalleryPhotos: (photos: Array<{ id: string; url: string; alt: string }>, onComplete?: () => void) => void;
   deleteGalleryPhoto: (photoId: string) => Promise<void>;
+  reorderGalleryPhotos: (reorderedPhotos: Array<{ id: string; url: string; alt: string }>) => Promise<void>;
   saveData: () => Promise<void>;
   saveGalleryPhotos: (newPhotos: Array<{ id: string; url: string; alt: string }>) => Promise<void>;
   isLoading: boolean;
@@ -410,6 +413,69 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   };
 
+  const reorderGalleryPhotos = async (reorderedPhotos: Array<{ id: string; url: string; alt: string }>) => {
+    console.log('reorderGalleryPhotos called', { 
+      reorderedCount: reorderedPhotos.length, 
+      currentPhotos: content.gallery?.photos?.length 
+    });
+    
+    // Create updated content with reordered photos
+    const updatedContent = {
+      ...content,
+      gallery: {
+        ...content.gallery,
+        photos: reorderedPhotos,
+      },
+    };
+
+    // Try to get user ID from multiple sources
+    let userId = currentUserId;
+    if (!userId) {
+      userId = import.meta.env.VITE_USER_ID;
+      console.log('Using fallback userId from env:', userId);
+    }
+
+    if (!userId) {
+      console.log('No user ID available');
+      toast.error('Please log in to save changes');
+      return;
+    }
+
+    try {
+      const token = await getAuthToken();
+      console.log('Auth token:', token ? 'Found' : 'Not found');
+
+      console.log('Saving reordered photos to database...', { 
+        userId, 
+        totalPhotos: updatedContent.gallery.photos.length
+      });
+
+      // Update state immediately for better UX
+      setContent(updatedContent);
+      setHasUserEdited(true);
+
+      const [edgeResult, tableResult] = await Promise.all([
+        supabase.functions.invoke('webdata', { body: { user_id: userId, web_data: updatedContent } }),
+        saveToTable(userId, updatedContent)
+      ]);
+
+      if (edgeResult.error) {
+        console.error('Edge function error:', edgeResult.error);
+        throw edgeResult.error;
+      }
+
+      setHasUserEdited(false);
+      console.log('Photos reordered and saved successfully to both edge function and table');
+      toast.success('Gallery order updated successfully!');
+    } catch (error) {
+      console.error('Reorder save error:', error);
+      toast.error('Failed to save gallery order');
+      // Revert to original order on error
+      setContent(content);
+      throw error;
+    }
+  };
+
   const saveData = async () => {
     console.log('saveData called', { 
       isAuthenticated, 
@@ -540,6 +606,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     addGalleryPhoto,
     addMultipleGalleryPhotos,
     deleteGalleryPhoto,
+    reorderGalleryPhotos,
     saveData,
     saveGalleryPhotos,
     isLoading,

@@ -1,20 +1,154 @@
 import React, { useState } from 'react';
-import { Plus, X, ArrowRight, Camera, Images, Eye, Heart } from 'lucide-react';
+import { Plus, X, ArrowRight, Camera, Images, Eye, Heart, GripVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useContent } from '@/contexts/ContentContext';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+// Sortable Photo Item Component
+interface SortablePhotoItemProps {
+  photo: { id: string; url: string; alt: string };
+  index: number;
+  isAuthenticated: boolean;
+  onImageClick: (url: string) => void;
+}
+
+const SortablePhotoItem: React.FC<SortablePhotoItemProps> = ({ photo, index, isAuthenticated, onImageClick }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: photo.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <motion.div
+      ref={setNodeRef}
+      style={style}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+      viewport={{ once: true }}
+    >
+      <div
+        className="group relative animate-fade-in-up"
+        style={{ animationDelay: `${index * 0.2}s` }}
+      >
+        <div className="relative overflow-hidden rounded-3xl bg-white shadow-xl border border-rose-100/50 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-rose-200">
+          {/* Drag Handle - Only show when authenticated */}
+          {isAuthenticated && (
+            <div
+              {...attributes}
+              {...listeners}
+              className="absolute top-2 left-2 z-20 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing shadow-lg hover:bg-white transition-colors"
+            >
+              <GripVertical className="w-4 h-4 text-rose-500" />
+            </div>
+          )}
+          
+          {/* Image Container */}
+          <div className="relative aspect-square overflow-hidden">
+            <img
+              src={photo.url}
+              alt={photo.alt || `Gallery image ${index + 1}`}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
+            
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            {/* Hover Controls */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <Button
+                variant="ghost"
+                size="lg"
+                className="w-16 h-16 rounded-full bg-white/90 hover:bg-white text-rose-500 hover:text-rose-600 shadow-lg"
+                onClick={() => onImageClick(photo.url)}
+              >
+                <Eye className="w-8 h-8" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Decorative corner elements */}
+          <div className="absolute top-4 right-4 w-6 h-6 bg-rose-100 rounded-full opacity-60"></div>
+          <div className="absolute bottom-4 left-4 w-4 h-4 bg-pink-100 rounded-full opacity-40"></div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 export const GallerySection: React.FC = () => {
   const { isAuthenticated } = useAuth();
-  const { content } = useContent();
+  const { content, reorderGalleryPhotos } = useContent();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  // Get the first 3 photos from the gallery
+  // Get all photos from the gallery (not just first 3, so reordering works properly)
   const gallery = content.gallery || { title: 'Gallery', photos: [] };
-  const displayPhotos = gallery.photos.slice(0, 3);
+  const allPhotos = gallery.photos;
+  const displayPhotos = allPhotos.slice(0, 3);
+
+  // Set up sensors for drag and drop
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  // Handle drag end event
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) {
+      return;
+    }
+
+    const oldIndex = allPhotos.findIndex((photo) => photo.id === active.id);
+    const newIndex = allPhotos.findIndex((photo) => photo.id === over.id);
+
+    if (oldIndex !== -1 && newIndex !== -1) {
+      const reorderedPhotos = arrayMove(allPhotos, oldIndex, newIndex);
+      
+      try {
+        await reorderGalleryPhotos(reorderedPhotos);
+      } catch (error) {
+        console.error('Failed to reorder photos:', error);
+      }
+    }
+  };
 
   return (
     <section id="gallery" className="section-padding bg-white relative overflow-hidden">
@@ -57,52 +191,28 @@ export const GallerySection: React.FC = () => {
         {/* Modern Gallery Grid */}
         <div className="max-w-6xl mx-auto">
           {displayPhotos.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayPhotos.map((photo, index) => (
-                 <motion.p
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                  >
-                <div
-                  key={photo.id}
-                  className="group relative animate-fade-in-up"
-                  style={{ animationDelay: `${index * 0.2}s` }}
-                >
-                  <div className="relative overflow-hidden rounded-3xl bg-white shadow-xl border border-rose-100/50 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-rose-200">
-                    {/* Image Container */}
-                    <div className="relative aspect-square overflow-hidden">
-                      <img
-                        src={photo.url}
-                        alt={photo.alt || `Gallery image ${index + 1}`}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      
-                      {/* Hover Controls */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        <Button
-                          variant="ghost"
-                          size="lg"
-                          className="w-16 h-16 rounded-full bg-white/90 hover:bg-white text-rose-500 hover:text-rose-600 shadow-lg"
-                          onClick={() => setSelectedImage(photo.url)}
-                        >
-                          <Eye className="w-8 h-8" />
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Decorative corner elements */}
-                    <div className="absolute top-4 right-4 w-6 h-6 bg-rose-100 rounded-full opacity-60"></div>
-                    <div className="absolute bottom-4 left-4 w-4 h-4 bg-pink-100 rounded-full opacity-40"></div>
-                  </div>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={allPhotos.map((photo) => photo.id)}
+                strategy={rectSortingStrategy}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {displayPhotos.map((photo, index) => (
+                    <SortablePhotoItem
+                      key={photo.id}
+                      photo={photo}
+                      index={index}
+                      isAuthenticated={isAuthenticated}
+                      onImageClick={setSelectedImage}
+                    />
+                  ))}
                 </div>
-                </motion.p>
-              ))}
-            </div>
+              </SortableContext>
+            </DndContext>
           ) : (
             <div className="text-center py-16">
               <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-12 shadow-xl border border-rose-100/50 max-w-md mx-auto">

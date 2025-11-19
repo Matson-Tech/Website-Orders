@@ -19,9 +19,27 @@ import {
   CheckCircle2, 
   XCircle, 
   Heart, 
-  Star 
+  Star,
+  GripVertical
 } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface FileUploadStatus {
   file: File;
@@ -32,8 +50,75 @@ interface FileUploadStatus {
   compressedSize?: number;
 }
 
+// Sortable Gallery Photo Item Component
+interface SortableGalleryPhotoItemProps {
+  photo: { id: string; url: string; alt: string };
+  isAuthenticated: boolean;
+  onDelete: (photoId: string) => void;
+}
+
+const SortableGalleryPhotoItem: React.FC<SortableGalleryPhotoItemProps> = ({ photo, isAuthenticated, onDelete }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: photo.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="relative group overflow-hidden rounded-2xl glass-card border-0 elegant-shadow hover:romantic-glow transition-all duration-300 aspect-square"
+    >
+      <img
+        src={photo.url}
+        alt={photo.alt}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+      />
+      
+      {/* Drag Handle - Only show when authenticated */}
+      {isAuthenticated && (
+        <div
+          {...attributes}
+          {...listeners}
+          className="absolute top-2 left-2 z-20 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing shadow-lg hover:bg-white transition-colors"
+        >
+          <GripVertical className="w-4 h-4 text-rose-500" />
+        </div>
+      )}
+      
+      {/* Overlay with delete button for authenticated users */}
+      {isAuthenticated && (
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => onDelete(photo.id)}
+            className="bg-red-500/90 hover:bg-red-600/90 backdrop-blur-sm"
+          >
+            <Trash2 className="w-4 h-4" />
+          </Button>
+        </div>
+      )}
+      
+      {/* Decorative corner elements */}
+      <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-white/60 opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
+      <div className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-white/60 opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
+    </div>
+  );
+};
+
 const Gallery = () => {
-  const { content, saveGalleryPhotos, deleteGalleryPhoto } = useContent();
+  const { content, saveGalleryPhotos, deleteGalleryPhoto, reorderGalleryPhotos } = useContent();
   const { isAuthenticated } = useAuth();
   const gallery = content.gallery || { title: 'Gallery', photos: [] };
   const [isAddingPhoto, setIsAddingPhoto] = useState(false);
@@ -41,6 +126,41 @@ const Gallery = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [fileStatuses, setFileStatuses] = useState<FileUploadStatus[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Set up sensors for drag and drop
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  // Handle drag end event
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) {
+      return;
+    }
+
+    const photos = gallery.photos;
+    const oldIndex = photos.findIndex((photo) => photo.id === active.id);
+    const newIndex = photos.findIndex((photo) => photo.id === over.id);
+
+    if (oldIndex !== -1 && newIndex !== -1) {
+      const reorderedPhotos = arrayMove(photos, oldIndex, newIndex);
+      
+      try {
+        await reorderGalleryPhotos(reorderedPhotos);
+      } catch (error) {
+        console.error('Failed to reorder photos:', error);
+      }
+    }
+  };
 
   const compressImage = async (file: File): Promise<File> => {
     const options = {
@@ -411,38 +531,27 @@ const Gallery = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {gallery.photos.map((photo) => (
-              <div 
-                key={photo.id} 
-                className="relative group overflow-hidden rounded-2xl glass-card border-0 elegant-shadow hover:romantic-glow transition-all duration-300 aspect-square"
-              >
-                <img
-                  src={photo.url}
-                  alt={photo.alt}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                
-                {/* Overlay with delete button for authenticated users */}
-                {isAuthenticated && (
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => handleDeletePhoto(photo.id)}
-                      className="bg-red-500/90 hover:bg-red-600/90 backdrop-blur-sm"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </div>
-                )}
-                
-                {/* Decorative corner elements */}
-                <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-white/60 opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
-                <div className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-white/60 opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={gallery.photos.map((photo) => photo.id)}
+              strategy={rectSortingStrategy}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                {gallery.photos.map((photo) => (
+                  <SortableGalleryPhotoItem
+                    key={photo.id}
+                    photo={photo}
+                    isAuthenticated={isAuthenticated}
+                    onDelete={handleDeletePhoto}
+                  />
+                ))}
               </div>
-            ))}
-          </div>
+            </SortableContext>
+          </DndContext>
         )}
       </div>
 

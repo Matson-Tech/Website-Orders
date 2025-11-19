@@ -66,7 +66,7 @@ export const OurJewelPartner: React.FC = () => {
                     
                     <p className="sans-font text-lg text-gray-600 leading-relaxed mb-8">
                       Creating timeless pieces that symbolize eternal love. From classic wedding bands 
-                      to custom engagement rings, every piece is crafted with exceptional attention to detail.
+                      to custom Wedding rings, every piece is crafted with exceptional attention to detail.
                     </p>
                   </div>
 

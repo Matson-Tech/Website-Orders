@@ -15,6 +15,8 @@ import {
   MapPin,
   Sparkles,
   Star,
+  Edit,
+  ExternalLink,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
@@ -225,19 +227,101 @@ export const ScheduleSection: React.FC = () => {
                             </EditableText>
                           )}
 
-                          {event.locationMyDestination && (
-                              <div className="mt-6">
-                            <a
-                              as="a"
-                              href={event.locationMyDestination}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="bg-rose-500 hover:bg-rose-600 text-white px-8 py-3 rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 tracking-wide"
-                            >
-                              {event.btnLabel || "Get Location"}
-                            </a>
-                            </div>
-                          )}
+                          {/* Location Button Section */}
+                          <div className="mt-6 space-y-3">
+                            {event.locationMyDestination ? (
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-3 flex-wrap">
+                                  <a
+                                    href={event.locationMyDestination}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-rose-500 hover:bg-rose-600 text-white px-8 py-3 rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 tracking-wide inline-flex items-center gap-2"
+                                  >
+                                    <MapPin className="w-4 h-4" />
+                                    {event.btnLabel || "Get Location"}
+                                    <ExternalLink className="w-4 h-4" />
+                                  </a>
+                                  {isAuthenticated && (
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => {
+                                        const updated = [...content.schedule];
+                                        delete updated[index].locationMyDestination;
+                                        delete updated[index].btnLabel;
+                                        updateContent("schedule", updated);
+                                      }}
+                                      className="text-xs border-red-300 text-red-600 hover:bg-red-50"
+                                    >
+                                      <Trash2 className="w-3 h-3 mr-1" />
+                                      Remove Location
+                                    </Button>
+                                  )}
+                                </div>
+                                {isAuthenticated && (
+                                  <div className="flex flex-col sm:flex-row gap-2 text-xs">
+                                    <div className="flex-1">
+                                      <label className="block text-gray-600 mb-1 font-medium">Button Label:</label>
+                                      <EditableText
+                                        value={event.btnLabel || "Get Location"}
+                                        onSave={(value) => {
+                                          const updated = [...content.schedule];
+                                          updated[index].btnLabel = value || "Get Location";
+                                          updateContent("schedule", updated);
+                                        }}
+                                      >
+                                        <div className="bg-gray-50 px-3 py-2 rounded-md border border-gray-200 text-gray-700">
+                                          {event.btnLabel || "Get Location"}
+                                        </div>
+                                      </EditableText>
+                                    </div>
+                                    <div className="flex-1">
+                                      <label className="block text-gray-600 mb-1 font-medium">Location URL:</label>
+                                      <EditableText
+                                        value={event.locationMyDestination}
+                                        onSave={(value) => {
+                                          const updated = [...content.schedule];
+                                          updated[index].locationMyDestination = value;
+                                          updateContent("schedule", updated);
+                                        }}
+                                      >
+                                        <div className="bg-gray-50 px-3 py-2 rounded-md border border-gray-200 text-gray-700 truncate">
+                                          {event.locationMyDestination}
+                                        </div>
+                                      </EditableText>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              isAuthenticated && (
+                                <div className="space-y-2">
+                                  <p className="text-sm text-gray-600 font-medium">Add Location:</p>
+                                  <EditableText
+                                    value=""
+                                    onSave={(value) => {
+                                      if (value.trim()) {
+                                        const updated = [...content.schedule];
+                                        updated[index].locationMyDestination = value.trim();
+                                        updated[index].btnLabel = "Get Location";
+                                        updateContent("schedule", updated);
+                                      }
+                                    }}
+                                  >
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      className="text-xs border-rose-300 text-rose-600 hover:bg-rose-50"
+                                    >
+                                      <Plus className="w-3 h-3 mr-1" />
+                                      Add Location URL
+                                    </Button>
+                                  </EditableText>
+                                </div>
+                              )
+                            )}
+                          </div>
                         </div>
 
                         {/* Delete Button */}
